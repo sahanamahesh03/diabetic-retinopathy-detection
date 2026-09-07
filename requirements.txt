@@ -8,3 +8,5 @@ opencv-python
 Pillow
 streamlit
 tqdm
+
+fpdf2
