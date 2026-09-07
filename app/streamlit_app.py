@@ -128,6 +128,17 @@ if uploaded_file is not None:
     st.write(f"**Predicted class:** {predicted_label}")
     st.write(f"**Confidence:** {confidence:.1f}%")
 
+    if predicted_label in ["Severe", "Proliferative"]:
+        st.error(
+            "⚠️ This result suggests a serious condition. "
+            "Please consult an ophthalmologist as soon as possible for a proper diagnosis and care."
+        )
+    elif predicted_label in ["Mild", "Moderate"]:
+        st.warning(
+            "This result suggests early to moderate signs of diabetic retinopathy. "
+            "It's recommended to schedule a checkup with an eye care professional."
+        )
+
     st.subheader("Class Probabilities")
     prob_dict = {config.CLASS_NAMES[i]: float(probs[i]) for i in range(config.NUM_CLASSES)}
     st.bar_chart(prob_dict)
