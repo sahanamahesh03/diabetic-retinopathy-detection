@@ -10,7 +10,7 @@ we don't confuse them with the earlier failed run.
 import os
 import tensorflow as tf
 
-import config
+import dr_config as config
 from data_loader import load_labels, split_data, build_dataset
 from augmentation import build_augmented_dataset
 from model_builder import unfreeze_model

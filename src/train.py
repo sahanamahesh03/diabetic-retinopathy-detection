@@ -15,7 +15,7 @@ import numpy as np
 from sklearn.utils.class_weight import compute_class_weight
 from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
 
-import config
+import dr_config as config
 from data_loader import load_labels, split_data, build_dataset
 from augmentation import build_augmented_dataset
 from model_builder import build_model, unfreeze_model

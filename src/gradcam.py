@@ -14,7 +14,7 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 
-import config
+import dr_config as config
 
 
 def load_and_prepare_image(filepath):

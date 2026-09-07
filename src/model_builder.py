@@ -16,7 +16,7 @@ import tensorflow as tf
 from tensorflow.keras import layers, models
 from tensorflow.keras.applications import EfficientNetB0
 
-import config
+import dr_config as config
 
 
 def build_model():

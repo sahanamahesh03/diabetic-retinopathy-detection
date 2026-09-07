@@ -19,7 +19,7 @@ from sklearn.metrics import (
     roc_auc_score, confusion_matrix, classification_report
 )
 
-import config
+import dr_config as config
 from data_loader import build_dataset
 
 

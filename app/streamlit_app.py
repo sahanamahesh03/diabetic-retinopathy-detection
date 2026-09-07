@@ -1,4 +1,4 @@
-﻿"""
+"""
 streamlit_app.py
 ------------------
 A simple web app for diabetic retinopathy prediction with Grad-CAM
@@ -18,7 +18,7 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 from scipy.ndimage import gaussian_filter
 
-import config
+import dr_config as config
 
 
 @st.cache_resource

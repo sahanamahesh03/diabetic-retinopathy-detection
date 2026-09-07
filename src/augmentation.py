@@ -15,7 +15,7 @@ or test data - we want to evaluate on real, unaltered images.
 """
 
 import tensorflow as tf
-import config
+import dr_config as config
 
 
 def augment_image(image, label):
