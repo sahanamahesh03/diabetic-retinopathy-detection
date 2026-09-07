@@ -4,3 +4,8 @@ __pycache__/
 data/raw/
 data/processed/
 .DS_Store
+
+models/saved_models/best_model_phase1_frozen.keras
+models/saved_models/best_model_phase2_finetuned.keras
+models/saved_models/best_model_phase2_finetuned_v2.keras
+models/saved_models/final_model_v2.keras
