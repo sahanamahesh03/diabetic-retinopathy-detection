@@ -72,6 +72,38 @@ def preprocess_image(pil_image):
     return model_input, display_image
 
 
+def is_likely_retinal_image(pil_image):
+    """
+    Stricter heuristic check: retinal fundus images have a near-black
+    background with a distinctly circular, warm-toned region in the center.
+    Checks that the image corners are very dark (near black) while the
+    center is warm-toned and significantly brighter.
+    """
+    img = pil_image.convert("RGB").resize((100, 100))
+    arr = np.array(img, dtype=np.float32)
+
+    # Check the four corners - real fundus images have solid black corners
+    corner_size = 10
+    corners = np.concatenate([
+        arr[:corner_size, :corner_size, :].flatten(),
+        arr[:corner_size, -corner_size:, :].flatten(),
+        arr[-corner_size:, :corner_size, :].flatten(),
+        arr[-corner_size:, -corner_size:, :].flatten()
+    ])
+    corner_brightness = corners.mean()
+
+    # Center region color and brightness
+    center = arr[35:65, 35:65, :]
+    center_r = center[:, :, 0].mean()
+    center_b = center[:, :, 2].mean()
+    center_brightness = center.mean()
+
+    corners_are_dark = corner_brightness < 30
+    center_is_warm = center_r > center_b
+    center_is_bright_enough = center_brightness > 40
+    significant_contrast = (center_brightness - corner_brightness) > 30
+
+    return corners_are_dark and center_is_warm and center_is_bright_enough and significant_contrast
 def make_gradcam_heatmap(model, image_array, last_conv_layer_name="top_conv"):
     base_model = model.get_layer("efficientnetb0")
     last_conv_layer = base_model.get_layer(last_conv_layer_name)
@@ -132,6 +164,14 @@ uploaded_file = st.file_uploader(
 
 if uploaded_file is not None:
     pil_image = Image.open(uploaded_file)
+
+    if not is_likely_retinal_image(pil_image):
+        st.error(
+            "This doesn't look like a retinal fundus image. "
+            "Please upload a clear retinal scan for accurate results."
+        )
+        st.image(pil_image, caption="Uploaded image", width=300)
+        st.stop()
 
     with st.spinner("Loading model and running prediction..."):
         model = load_trained_model()
