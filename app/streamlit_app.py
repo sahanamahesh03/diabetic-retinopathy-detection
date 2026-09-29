@@ -179,6 +179,19 @@ st.markdown("""
     }
     .stButton>button, .stButton>button * { color: #FFFFFF !important; }
     .stButton>button:hover { background-color: #12283B !important; }
+    .stTextInput input {
+        background-color: #12283B !important;
+        color: #FFFFFF !important;
+        border-radius: 8px !important;
+        border: 1px solid #3A5068 !important;
+    }
+    .stTextInput input::placeholder {
+        color: #A9B8C7 !important;
+    }
+    .stTextInput label {
+        color: #1B2430 !important;
+        font-weight: 600;
+    }
 </style>
 """, unsafe_allow_html=True)
 
